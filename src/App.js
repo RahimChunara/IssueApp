@@ -3,10 +3,7 @@ import Login from './components/Login';
 import IssuePage from './components/IssuePage';
 import CreateIssue from './components/CreateIssue';
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import {createStore} from 'redux';
-import allissues from './reducers'; 
 
-const store = createStore(allissues);
 
 function App() {
   return (
