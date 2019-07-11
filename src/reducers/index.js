@@ -1,12 +1,9 @@
 import {combineReducers, createStore} from 'redux';
 import Allissues from './allissues';
-//import { bindActionCreators } from 'redux';
-// import ActiveIssue from '../reducers/activeissues';
-//const store = createStore(Allissues)
+import { issue } from './issue'
 
 const allissues = combineReducers({
-    issues: Allissues,
-    // activeIssue: ActiveIssue
+    issue
 });
 
 

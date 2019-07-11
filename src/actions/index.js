@@ -1,34 +1,13 @@
 import Allissues from '../reducers/allissues';
 import { bindActionCreators } from 'redux';
-import { createStore } from 'redux';
 
-const store = createStore(Allissues, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+let issueID = 0
 
-const addid = id => (
+export const addissue = issue => dispatch => (
     {
-        type: "ADD_ID",
-        payload: id
-    }
-)
-const addTitle = title => (
-    {
-        type: "ADD_TITLE",
-        payload: title
+        type: "ADD_ISSUE",
+        id: issueID++,
+        issue
     }
 )
 
-const addDesc = description => (
-    {
-        type: "ADD_DESCRIPTION",
-        payload: description
-    }
-)
-
-export const actionCreators = bindActionCreators(
-    {
-        addid,
-        addTitle,
-        addDesc
-    },
-    store.dispatch
-);

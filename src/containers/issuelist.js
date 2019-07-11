@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-import { userInfo } from 'os';
+// import { addTitle } from '../actions/index';
+// import { userInfo } from 'os';
 
 class IssueList extends Component {
 
@@ -28,8 +29,8 @@ function mapStatetoProps(state) {
     };
 }
 
-// function matchDispatchToProps() {
-//     return ({selectIssue: selectIssue})
+// const matchDispatchToProps = (dispatch) => {
+//     return bindActionCreators({addTitle: addTitle, dispatch})
 // }
 
 export default connect(mapStatetoProps)(IssueList);

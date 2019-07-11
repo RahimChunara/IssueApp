@@ -1,39 +1,55 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Link } from "react-router-dom";
-//import IssuePage from "./IssuePage";
 import { actionCreators } from "../actions/index";
+import { connect } from 'react-redux';
+import { addissue } from '../actions/index';
+import { allissues } from '../reducers/index'
+import { issue } from '../reducers/issue';
 
 class CreateIssue extends Component {
 
-    handleinput(e) {
-        e.preventDefault();
-    }
+    // onSubmit(e) {
+    //     e.preventDefault();
+    //     this.props.onSubmitForm;
+    // }
 
+    
     render() {
         return (
             <div>
-                <form>
+                <form onSubmit={e => (e.preventDefault(), this.props.onSubmitForm)}>
                     <input
-                        maxLength="32"
-                        className="TaskBox"
+                        id="title"
                         type="text"
                         placeholder="Enter task"
-                        onChange={e => actionCreators.addTitle(e.target.value)}
+                        value={this.props.title}
                     />
-                    <button
-                        onChange={e => this.handleinput(e)}
-                    >
+                    <button>
                         ADD
                     </button>
                 </form>
             </div>
         );
     }
-
-
-
-
-
 }
 
-export default CreateIssue;
+
+
+function mapStatetoProps(state) {
+    return {
+        issues: state.allissues
+    }
+}
+
+function mapDispatchtoProps(dispatch) {
+    return {
+        onSubmitForm: (evt) => {
+            dispatch(addissue(evt.target.title.value));
+        }
+    }
+    //return bindActionCreators({ addissue: addissue, dispatch })
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(CreateIssue);
+//export default CreateIssue;
+
