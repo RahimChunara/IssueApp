@@ -17,12 +17,12 @@ class CreateIssue extends Component {
     render() {
         return (
             <div>
-                <form onSubmit={e => (e.preventDefault(), this.props.onSubmitForm)}>
+                <form onSubmit={e => (e.preventDefault(), this.props.onSubmitForm(e.target.value))}>
                     <input
                         id="title"
                         type="text"
                         placeholder="Enter task"
-                        value={this.props.title}
+                        value={this.props.value}
                     />
                     <button>
                         ADD
@@ -37,14 +37,15 @@ class CreateIssue extends Component {
 
 function mapStatetoProps(state) {
     return {
-        issues: state.allissues
+        issues: state.issue
     }
 }
 
 function mapDispatchtoProps(dispatch) {
+    //console.log(value)
     return {
-        onSubmitForm: (evt) => {
-            dispatch(addissue(evt.target.title.value));
+        onSubmitForm: (value) => {
+            dispatch(addissue(value));
         }
     }
     //return bindActionCreators({ addissue: addissue, dispatch })

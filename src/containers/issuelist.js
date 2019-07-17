@@ -5,8 +5,7 @@ import {connect} from 'react-redux';
 // import { userInfo } from 'os';
 
 class IssueList extends Component {
-
-
+    
     createList() {
         return this.props.issues.map((issues) => {
             return (

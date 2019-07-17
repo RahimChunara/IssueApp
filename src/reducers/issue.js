@@ -1,22 +1,17 @@
-export const issue = (state = [], action) => {
+const issue = (state = [], action) => {
+    console.log(action.value)
     switch (action.type) {
-        case 'ADD_TITLE':
+        case 'ADD_ISSUE':
             return [
                 ...state,
                 {
-                    id: action.id,
-                    title: action.title
+                id: action.id,
+                value: action.value
                 }
             ]
-        case 'ADD_DESCRIPTION':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    description: action.description
-                }
-            ]
-        default:
-            return state 
+            default: 
+                return state 
         }
     }
+
+export default issue;

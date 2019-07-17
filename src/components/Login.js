@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Router, Route, Switch } from 'react-router'
 
 class Login extends Component {
     constructor() {
@@ -10,8 +9,6 @@ class Login extends Component {
             confirmUsername: '1234',
             confirmPassword: '1234',
         };
-
-        //this.handleChange = this.handleChange.bind(this);
 
     }
 
