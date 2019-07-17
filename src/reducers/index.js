@@ -1,10 +1,8 @@
-// import {combineReducers, createStore} from 'redux';
-// import Allissues from './allissues';
-// import { issue } from './issue'
+import {combineReducers, createStore} from 'redux';
+import Allissues from './issue'
 
-// const allissues = combineReducers({
-//     issues: Allissues
-// });
+const allReducers = combineReducers({
+    allissues: Allissues
+});
 
-
-// export default allissues;
+export default allReducers;

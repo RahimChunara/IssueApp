@@ -12,20 +12,51 @@ class CreateIssue extends Component {
     //     e.preventDefault();
     //     this.props.onSubmitForm;
     // }
+    constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            title: '',
+            description: ''
+        }
+    }
+    handleChange(evt) {
+        this.setState({
+            [evt.target.name]: evt.target.value
+        })
+    }
 
+    handleSubmit(e) {
+        e.preventDefault();
+        let value = {
+            title: this.state.title,
+            description: this.state.description
+        }
+        this.props.onSubmitForm(value);
+    }
     
     render() {
         return (
             <div>
-                <form onSubmit={e => (e.preventDefault(), this.props.onSubmitForm(e.target.value))}>
+                <form onSubmit={this.handleSubmit}>
                     <input
                         id="title"
                         type="text"
-                        placeholder="Enter task"
-                        value={this.props.value}
+                        placeholder="ENTER TITLE"
+                        name="title"
+                        // value={this.props.value}
+                        onChange = {this.handleChange}
+                    /><br/>
+                    <input
+                        id="title"
+                        type="text"
+                        placeholder="Enter DESCRIPTION"
+                        name="description"
+                        onChange={this.handleChange}
                     />
                     <button>
-                        ADD
+                        SUBMIT
                     </button>
                 </form>
             </div>
@@ -37,20 +68,17 @@ class CreateIssue extends Component {
 
 function mapStatetoProps(state) {
     return {
-        issues: state.issue
+        issues: state.allissues
     }
 }
 
 function mapDispatchtoProps(dispatch) {
-    //console.log(value)
     return {
         onSubmitForm: (value) => {
             dispatch(addissue(value));
         }
     }
-    //return bindActionCreators({ addissue: addissue, dispatch })
 }
 
 export default connect(mapStatetoProps, mapDispatchtoProps)(CreateIssue);
-//export default CreateIssue;
 

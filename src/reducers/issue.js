@@ -1,17 +1,13 @@
-const issue = (state = [], action) => {
-    console.log(action.value)
+export default function(state = [], action) {
+    //console.log(action.value)
     switch (action.type) {
         case 'ADD_ISSUE':
             return [
                 ...state,
-                {
-                id: action.id,
-                value: action.value
-                }
+                Object.assign({}, action.value)
             ]
             default: 
                 return state 
         }
     }
 
-export default issue;

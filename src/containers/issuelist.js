@@ -1,35 +1,27 @@
 import React, {Component} from 'react';
-import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
-// import { addTitle } from '../actions/index';
-// import { userInfo } from 'os';
+import { issue } from '../reducers/issue'
 
 class IssueList extends Component {
     
-    createList() {
-        return this.props.issues.map((issues) => {
-            return (
-                <li key={issues.id}>{issues.id}) {issues.title}</li>
-            )
-        })
-    }
     render() {
         return (
             <ul>
-                {this.createList()}
+                {
+                    this.props.issue.map((issue) => {
+                    return <li key = { this.props.issue.id } > { this.props.issue.id }) { this.props.issue.title}</li>
+                    }
+                    )
+                }
             </ul>
-        );
-    }
-}
+        )
+            }
+        }
 
 function mapStatetoProps(state) {
     return {
-        issues: state.issues
+        issue: state.allissues
     };
 }
-
-// const matchDispatchToProps = (dispatch) => {
-//     return bindActionCreators({addTitle: addTitle, dispatch})
-// }
 
 export default connect(mapStatetoProps)(IssueList);
