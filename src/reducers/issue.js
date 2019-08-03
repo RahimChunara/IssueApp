@@ -4,7 +4,7 @@ export default function(state = [], action) {
         case 'ADD_ISSUE':
             return [
                 ...state,
-                Object.assign({}, action.value)
+                Object.assign({}, action.payload)
             ]
             default: 
                 return state 

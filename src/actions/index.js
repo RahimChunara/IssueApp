@@ -1,10 +1,12 @@
-let issueID = 0
+let issueID = 1
 
 export function addissue(value) {
     return ({
         type: 'ADD_ISSUE',
-        id: issueID++,
-        value
+        payload: {
+            ...value,
+            id: issueID++
+        }
     });
 }
 

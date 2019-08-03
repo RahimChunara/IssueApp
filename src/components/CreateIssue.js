@@ -34,6 +34,11 @@ class CreateIssue extends Component {
             description: this.state.description
         }
         this.props.onSubmitForm(value);
+        this.redirecthomepage()
+    }
+
+    redirecthomepage() {
+        this.props.history.push('/issue')
     }
     
     render() {
