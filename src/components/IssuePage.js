@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import CreateIssue from './CreateIssue';
 import IssueList from '../containers/issuelist';
 
 class IssuePage extends Component {

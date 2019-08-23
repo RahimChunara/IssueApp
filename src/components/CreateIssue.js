@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Link } from "react-router-dom";
-import { actionCreators } from "../actions/index";
 import { connect } from 'react-redux';
 import { addissue } from '../actions/index';
-import { allissues } from '../reducers/index'
-import { issue } from '../reducers/issue';
 
 class CreateIssue extends Component {
 
