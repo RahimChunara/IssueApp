@@ -10,13 +10,13 @@ class IssuePage extends Component {
 
     render() {
         return (
-            <div>
+            <div><br /><br />
                 <button
                         className="CreateIssue"
                         onClick={() => this.handleRedirect()}
                     >
                         Create New Issue
-                </button>
+                </button><br/><br/>
                 List of Issues:
                 <IssueList />
             </div>

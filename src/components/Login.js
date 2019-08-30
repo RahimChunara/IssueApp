@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Form, Icon, Input, Button } from 'antd';
+import '../css/login.css'
 
 class Login extends Component {
     constructor() {
@@ -19,17 +21,18 @@ class Login extends Component {
     }
 
     handleSubmit = event => {
+        console.log("hello");
         event.preventDefault();
         const { password, confirmPassword, username, confirmUsername } = this.state;
         if (password !== confirmPassword || username !== confirmUsername) {
             alert("Invalid credentials");
         } else {
-          this.redirecthomepage()
+            this.redirecthomepage()
         }
     }
 
-    redirecthomepage(){
-      this.props.history.push('/issue')
+    redirecthomepage() {
+        this.props.history.push('/issue')
     }
 
     validateForm() {
@@ -40,30 +43,38 @@ class Login extends Component {
         return (
             <div className="Login">
                 Login
-        <form onSubmit={this.handleSubmit}>
-                    <label>User Name</label>
-                    <input 
-                        type="username"
-                        value={this.state.username}
-                        onChange={e => this.updateInput("username", e.target.value)} 
-                    />
-
-                    <label>Password</label>
-                    <input 
-                        type="password" 
-                        value={this.state.password} 
-                        onChange={e => this.updateInput("password", e.target.value)} 
-                    />
-
-                    <input 
-                        type="submit" 
-                        value="Log In" 
-                        disabled={!this.validateForm()} 
-                    />
-                </form>
+                <Form onSubmit={this.handleSubmit} className="login-form">
+                    <Form.Item>
+                        <Input
+                            type="username"
+                            value={this.state.username}
+                            onChange={e => this.updateInput("username", e.target.value)}
+                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            placeholder="Username"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Input
+                            type="password"
+                            value={this.state.password}
+                            onChange={e => this.updateInput("password", e.target.value)}
+                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                            placeholder="Password"
+                        />
+                    </Form.Item>
+                    <Form.Item>
+                        <Button
+                            type="primary"
+                            value="Log In"
+                            className="login-form-button"
+                            disabled={!this.validateForm()}
+                        > Login </Button>
+                    </Form.Item>
+                </Form>
             </div>
         );
     }
 }
+
 
 export default Login;

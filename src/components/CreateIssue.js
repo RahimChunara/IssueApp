@@ -14,7 +14,8 @@ class CreateIssue extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.state = {
             title: '',
-            description: ''
+            description: '',
+            date: new Date().toLocaleString()
         }
     }
     handleChange(evt) {
@@ -27,7 +28,8 @@ class CreateIssue extends Component {
         e.preventDefault();
         let value = {
             title: this.state.title,
-            description: this.state.description
+            description: this.state.description,
+            date: this.state.date
         }
         this.props.onSubmitForm(value);
         this.redirecthomepage()
