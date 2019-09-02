@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {issueStatus} from '../actions/index';
+import { bindActionCreators } from 'redux';
+
+
 
 class IssueDetails extends Component {
 
@@ -13,6 +17,8 @@ class IssueDetails extends Component {
                                 <div>
                                     <h1> Title : {issue.title} </h1>
                                     <h2> Description : {issue.description} </h2>
+                                    <h3> Status: {issue.status} </h3>
+                                    <button onClick={() => { if (window.confirm('Are you sure you wish to close the issue?')) this.props.issueStatus(issue) }}> Close Issue </button>
                                 </div>
                             )
                         }
@@ -30,7 +36,11 @@ function mapStatetoProps(state) {
     };
 }
 
-export default connect(mapStatetoProps)(IssueDetails);
+function mapDispatchtoProps(dispatch) {
+    return bindActionCreators({ issueStatus: issueStatus }, dispatch)
+}
+
+export default connect(mapStatetoProps, mapDispatchtoProps)(IssueDetails);
 
 
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
-import { Form, Icon, Input, Button } from 'antd';
+import { Form, Icon, Input, Button, Layout } from 'antd';
 import '../css/login.css'
+const { Content } = Layout;
+
 
 class Login extends Component {
     constructor() {
@@ -42,7 +44,7 @@ class Login extends Component {
     render() {
         return (
             <div className="Login">
-                Login
+                <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
                 <Form onSubmit={this.handleSubmit} className="login-form">
                     <Form.Item>
                         <Input
@@ -65,12 +67,14 @@ class Login extends Component {
                     <Form.Item>
                         <Button
                             type="primary"
+                            htmlType="submit"
                             value="Log In"
                             className="login-form-button"
-                            disabled={!this.validateForm()}
+                            // disabled={!this.validateForm()}
                         > Login </Button>
                     </Form.Item>
                 </Form>
+                </Content>
             </div>
         );
     }

@@ -5,8 +5,16 @@ export function addissue(value) {
         type: 'ADD_ISSUE',
         payload: {
             ...value,
-            id: issueID++
+            id: issueID++,
+            status: 'OPEN'
         }
     });
 }
 
+export const issueStatus = (issue) => {
+    console.log("Clicked on " + issue.title);
+    return {
+        type: 'CHANGE_STATUS',
+        payload: issue
+    }
+};
