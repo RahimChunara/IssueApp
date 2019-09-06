@@ -12,7 +12,6 @@ export function addissue(value) {
 }
 
 export const issueStatus = (issue) => {
-    console.log("Clicked on " + issue.title);
     return {
         type: 'CHANGE_STATUS',
         payload: issue

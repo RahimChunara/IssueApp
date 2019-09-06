@@ -4,7 +4,6 @@ import {issueStatus} from '../actions/index';
 import { bindActionCreators } from 'redux';
 
 
-
 class IssueDetails extends Component {
 
     render() {
@@ -18,6 +17,7 @@ class IssueDetails extends Component {
                                     <h1> Title : {issue.title} </h1>
                                     <h2> Description : {issue.description} </h2>
                                     <h3> Status: {issue.status} </h3>
+                                    <h3> Issue Type: : {issue.labels} </h3> 
                                     <button onClick={() => { if (window.confirm('Are you sure you wish to close the issue?')) this.props.issueStatus(issue) }}> Close Issue </button>
                                 </div>
                             )
