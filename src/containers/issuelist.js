@@ -1,10 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-// import { BrowserRouter as Link } from "react-router-dom";
 import { Link } from 'react-router-dom';
-//import { Menu, Dropdown, Icon } from 'antd';
 import 'antd/dist/antd.css';
+import { Table, Tag, Input, Select } from 'antd';
 
+const { Option } = Select;
+const { Column } = Table;
 
 let sortedElements;
 class IssueList extends Component {
@@ -20,27 +21,30 @@ class IssueList extends Component {
         };
     }
 
+
     handleSearch(e) {
         this.setState({ search: e.target.value });
     }
 
-    handleType(e) {
-        this.setState({ selectedType: e.target.value }, function () {
+    handleType(value) {
+        this.setState({ selectedType: value }, function () {
             this.sortType();
-        }   
-    )}
+        }
+        )
+    }
 
-    handleChange(e) {
-        // console.log(e.target.value)
-        this.setState({ selectedValue: e.target.value }, function() {
+    handleChange(value) {
+        this.setState({ selectedValue: value }, function () {
             this.sortingFunc();
         }
-    )}
+        )
+    }
+
+    handleClick(e) {
+        this.props.history.push("/hello");
+    }
 
     sortingFunc = () => {
-        // this.setState({ selectedValue: e.target.value })
-        //console.log(this.state.selectedValue);
-        //console.log(sortedElements);
         if (this.state.selectedValue === 'Alphabetically') {
             sortedElements = this.props.issue
                 .sort(function (a, b) {
@@ -49,7 +53,6 @@ class IssueList extends Component {
                     return 0;
                 })
         } else {
-            //console.log("ALL");
             sortedElements = this.props.issue;
         }
         this.forceUpdate();
@@ -64,16 +67,15 @@ class IssueList extends Component {
             }
         )
     }
+
     sortType() {
-        // console.log(sortedElements)
-        if( this.state.selectedType === 'Bug') {
-            // console.log("Bug");
+        if (this.state.selectedType === 'Bug') {
             this.checkSort('Bug');
         }
         else if (this.state.selectedType === 'Documentation') {
             this.checkSort('Documentation');
         }
-        else if( this.state.selectedType === 'Duplicate') {
+        else if (this.state.selectedType === 'Duplicate') {
             this.checkSort('Duplicate');
         }
         else if (this.state.selectedType === 'Enhancement') {
@@ -83,15 +85,11 @@ class IssueList extends Component {
             this.checkSort('Bug', 'Documentation', 'Duplicate', 'Enchancement');
         }
         this.forceUpdate();
-        // console.log(sortedElements);
-
     }
 
     render() {
-        // console.log(sortedElements)
         var sort;
         if (sortedElements) { sort = sortedElements } else { sort = this.props.issue }
-        // console.log(sort);
         let filteredIssues = sort.filter(
             (issue) => {
                 return issue.title.toLowerCase().includes(this.state.search.toLowerCase()) || issue.description.toLowerCase().includes(this.state.search.toLowerCase());
@@ -99,32 +97,50 @@ class IssueList extends Component {
         );
 
         return (
-            <Fragment>
-                <input type="text"
+            <Fragment style={{ marginLeft: '2.5%' }}>
+                <Input
+                    type="text"
                     value={this.state.search}
-                    onChange={this.handleSearch.bind(this)} />
+                    placeholder="Search"
+                    onChange={this.handleSearch.bind(this)} allowClear
+                    style={{ width: '15%', marginLeft: '2.5%', position: 'absolute', marginTop: '2.5%' }}
+                />
                 <br /><br />
-                <select onChange={this.handleChange}>
-                    <option value="Sort By">Sort By</option>
-                    <option value="Alphabetically">Alphabetically</option>
-                </select>
-                <select onChange={this.handleType} required>
-                    <option value="Filter By">Filter By</option>
-                    <option value="Bug">Bug</option>
-                    <option value="Documentation">Documentation</option>
-                    <option value="Duplicate">Duplicate</option>
-                    <option value="Enhancement">Enhancement</option>
-                </select>
-                <br/>
-
-                <ul>
-                    {
-                        filteredIssues.map((issue) => {
-                            return <li key={issue.id}><Link to={`issue/${issue.id}`}> {issue.title} </Link></li>
-                        }
-                        )
-                    }
-                </ul>
+                <div style={{ marginLeft: '70%' }}>
+                    <Select defaultValue="Sort By" style={{ width: 120 }} onSelect={(value) => this.handleChange(value)} required>
+                        <Option value="Sort By">Sort By</Option>
+                        <Option value="Alphabetically">Alphabetically</Option>
+                    </Select>
+                    <Select defaultValue="Filter By" style={{ width: 120 }} onSelect={(value) => this.handleType(value)} required>
+                        <Option value="Filter By">Filter By</Option>
+                        <Option value="Bug">Bug</Option>
+                        <Option value="Documentation">Documentation</Option>
+                        <Option value="Duplicate">Duplicate</Option>
+                        <Option value="Enhancement">Enhancement</Option>
+                    </Select>
+                </div>
+                <br />
+                <div style={{ marginLeft: '2.5%' }}>
+                    <Table dataSource={filteredIssues} style={{ width: '95%' }} bordered>
+                        <Column title="Issue" dataIndex="title" key="title" onClick={() => this.handleClick} render={(text, issue) => <Link to={`issue/${issue.id}`}>{text}</Link>} />
+                        <Column title="Status" dataIndex="status" key="status" />
+                        <Column
+                            title="Tags"
+                            dataIndex="labels"
+                            key="labels"
+                            render={labels => (
+                                <span>
+                                    {labels.map(labels => (
+                                        <Tag color="blue" key={labels}>
+                                            {labels}
+                                        </Tag>
+                                    ))}
+                                </span>
+                            )}
+                        />
+                        <Column title="Date Published" dataIndex="date" key="date" />
+                    </Table>
+                </div>
             </Fragment>
         )
     }

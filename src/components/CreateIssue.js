@@ -1,16 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { addissue } from '../actions/index';
-import { Select } from 'antd';
+import { Select, Input, Button } from 'antd';
 
 const { Option } = Select;
+const { TextArea } = Input;
 
 class CreateIssue extends Component {
 
-    // onSubmit(e) {
-    //     e.preventDefault();
-    //     this.props.onSubmitForm;
-    // }
     constructor(props) {
         super(props);
         this.handleChange = this.handleChange.bind(this);
@@ -24,23 +21,14 @@ class CreateIssue extends Component {
         }
     }
 
-    // handleLabel(evt) {
-    //     console.log(evt);
-    // }
-
     onUpdateItem(value) {
         console.log(value)
         this.setState({
             labels: value
         });
     }
-        // const labels = this.state.labels;
-        // labels[i] = event.target.value;
-        // this.setState({ labels });
-
 
     handleChange(evt) {
-        // console.log(evt.target.value);
         this.setState({
             [evt.target.name]: evt.target.value
         })
@@ -66,25 +54,30 @@ class CreateIssue extends Component {
         return (
             <div>
                 <form onSubmit={this.handleSubmit}>
-                    <input
+                    <br /><br />
+                    <Input
+                        size="large"
                         id="title"
                         type="text"
                         placeholder="ENTER TITLE"
                         name="title"
-                        // value={this.props.value}
+                        style={{ marginLeft: '2.5%', width: '95%' }}
                         onChange={this.handleChange}
-                    /><br />
-                    <input
+                    /><br /><br />
+                    <TextArea
                         id="title"
                         type="text"
                         placeholder="Enter DESCRIPTION"
                         name="description"
                         onChange={this.handleChange}
-                    /><br />
+                        style={{ marginLeft: '2.5%', width: '95%' }}
+                        autosize={{ minRows: 2, maxRows: 6 }}
+                    /><br /><br />
                     <Select
+                        id="labels"
                         mode="multiple"
                         name="labels"
-                        style={{ width: '50%' }}
+                        style={{ width: '50%', marginLeft: '25%' }}
                         placeholder="Select Labels"
                         onChange={this.onUpdateItem}
                     >
@@ -108,10 +101,12 @@ class CreateIssue extends Component {
                                 Enhancement
                             </span>
                         </Option>
-                    </Select><br/>
-                    <button>
-                        SUBMIT
-                    </button>
+                    </Select><br /><br />
+                    <div style={{ textAlign: 'center' }}>
+                        <Button type="primary" htmlType="submit">
+                            SUBMIT
+                    </Button>
+                    </div>
                 </form>
             </div>
         );

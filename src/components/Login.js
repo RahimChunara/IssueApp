@@ -45,35 +45,35 @@ class Login extends Component {
         return (
             <div className="Login">
                 <Content style={{ margin: '24px 16px 0', overflow: 'initial' }}>
-                <Form onSubmit={this.handleSubmit} className="login-form">
-                    <Form.Item>
-                        <Input
-                            type="username"
-                            value={this.state.username}
-                            onChange={e => this.updateInput("username", e.target.value)}
-                            prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="Username"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Input
-                            type="password"
-                            value={this.state.password}
-                            onChange={e => this.updateInput("password", e.target.value)}
-                            prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                            placeholder="Password"
-                        />
-                    </Form.Item>
-                    <Form.Item>
-                        <Button
-                            type="primary"
-                            htmlType="submit"
-                            value="Log In"
-                            className="login-form-button"
-                            // disabled={!this.validateForm()}
-                        > Login </Button>
-                    </Form.Item>
-                </Form>
+                    <Form onSubmit={this.handleSubmit} className="login-form">
+                        <Form.Item>
+                            <Input
+                                type="username"
+                                value={this.state.username}
+                                onChange={e => this.updateInput("username", e.target.value)}
+                                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="Username"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Input
+                                type="password"
+                                value={this.state.password}
+                                onChange={e => this.updateInput("password", e.target.value)}
+                                prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                placeholder="Password"
+                            />
+                        </Form.Item>
+                        <Form.Item>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                value="Log In"
+                                className="login-form-button"
+                                disabled={!this.validateForm()}
+                            > Login </Button>
+                        </Form.Item>
+                    </Form>
                 </Content>
             </div>
         );

@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import IssueList from '../containers/issuelist';
+import { Button, Typography } from 'antd';
+
+const { Title } = Typography;
 
 class IssuePage extends Component {
 
@@ -10,14 +13,16 @@ class IssuePage extends Component {
 
     render() {
         return (
-            <div><br /><br />
-                <button
-                        className="CreateIssue"
-                        onClick={() => this.handleRedirect()}
-                    >
-                        Create New Issue
-                </button><br/><br/>
-                List of Issues:
+            <div><br />
+                <Title style={{ position: 'absolute', marginTop: '1%', marginLeft: '2.5%' }}>Issue App</Title>
+                <Button
+                    type="primary"
+                    className="CreateIssue"
+                    onClick={() => this.handleRedirect()}
+                    style={{ marginLeft: '75%', position: 'absolute', marginTop: '2%' }}
+                >
+                    Create New Issue
+                </Button><br /><br />
                 <IssueList />
             </div>
         );
