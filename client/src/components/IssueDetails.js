@@ -8,14 +8,16 @@ import '../css/issueDetails.css';
 
 
 class IssueDetails extends Component {
-
+    
     render() {
+        const { issues } = this.props.issue;
         return (
+           
 
             <ul>
                 {
-                    this.props.issue.map((issue) => {
-                        if (this.props.match.params.id == issue.id) {
+                    issues.map((issue) => {
+                        if (this.props.match.params._id == issue._id) {
                             return (
                                 <div>
                                     <PageHeader
@@ -43,11 +45,11 @@ function mapStatetoProps(state) {
     };
 }
 
-function mapDispatchtoProps(dispatch) {
-    return bindActionCreators({ issueStatus: issueStatus }, dispatch)
-}
+// function mapDispatchtoProps(dispatch) {
+//     return bindActionCreators({ issueStatus: issueStatus }, dispatch)
+// }
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(IssueDetails);
+export default connect(mapStatetoProps, { issueStatus })(IssueDetails);
 
 
 

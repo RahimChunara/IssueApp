@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Form, Icon, Input, Button, Layout } from 'antd';
+import axios from 'axios';
 import '../css/login.css'
 const { Content } = Layout;
 
@@ -23,19 +24,37 @@ class Login extends Component {
     }
 
     handleSubmit = event => {
-        console.log("hello");
         event.preventDefault();
-        const { password, confirmPassword, username, confirmUsername } = this.state;
-        if (password !== confirmPassword || username !== confirmUsername) {
-            alert("Invalid credentials");
-        } else {
-            this.redirecthomepage()
-        }
+
+        const { username, password } = this.state;
+    
+        axios.post('/api/auth/login', { username, password })
+          .then((result) => {
+            localStorage.setItem('jwtToken', result.data.token);
+            this.setState({ message: '' });
+            this.props.history.push('/issue')
+          })
+          .catch((error) => {
+            if(error.response.status === 401) {
+              this.setState({ message: 'Login failed. Username or password not match' });
+            }
+          });
     }
 
-    redirecthomepage() {
-        this.props.history.push('/issue')
-    }
+    // handleSubmit = event => {
+    //     console.log("hello");
+    //     event.preventDefault();
+    //     const { password, confirmPassword, username, confirmUsername } = this.state;
+    //     if (password !== confirmPassword || username !== confirmUsername) {
+    //         alert("Invalid credentials");
+    //     } else {
+    //         this.redirecthomepage()
+    //     }
+    // }
+
+    // redirecthomepage() {
+    //     this.props.history.push('/issue')
+    // }
 
     validateForm() {
         return this.state.username.length > 0 && this.state.password.length > 0;

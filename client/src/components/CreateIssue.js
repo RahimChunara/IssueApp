@@ -40,9 +40,10 @@ class CreateIssue extends Component {
             title: this.state.title,
             description: this.state.description,
             date: this.state.date,
-            labels: this.state.labels
+            labels: this.state.labels,
+            status: 'OPEN'
         }
-        this.props.onSubmitForm(value);
+        this.props.addissue(value);
         this.redirecthomepage()
     }
 
@@ -121,13 +122,13 @@ function mapStatetoProps(state) {
     }
 }
 
-function mapDispatchtoProps(dispatch) {
-    return {
-        onSubmitForm: (value) => {
-            dispatch(addissue(value));
-        }
-    }
-}
+// function mapDispatchtoProps(dispatch) {
+//     return {
+//         onSubmitForm: (value) => {
+//             dispatch(addissue(value));
+//         }
+//     }
+// }
 
-export default connect(mapStatetoProps, mapDispatchtoProps)(CreateIssue);
+export default connect(mapStatetoProps, { addissue })(CreateIssue);
 

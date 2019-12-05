@@ -3,6 +3,9 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import 'antd/dist/antd.css';
 import { Table, Tag, Input, Select } from 'antd';
+import { getissue } from '../actions/index';
+// import PropTypes from 'prop-types';
+
 
 const { Option } = Select;
 const { Column } = Table;
@@ -21,6 +24,9 @@ class IssueList extends Component {
         };
     }
 
+    componentDidMount() {
+        this.props.getissue();
+    }
 
     handleSearch(e) {
         this.setState({ search: e.target.value });
@@ -45,23 +51,25 @@ class IssueList extends Component {
     }
 
     sortingFunc = () => {
+        const { issues } = this.props.issue;
         if (this.state.selectedValue === 'Alphabetically') {
-            sortedElements = this.props.issue
+            sortedElements = issues
                 .sort(function (a, b) {
                     if (a.title.toLowerCase() < b.title.toLowerCase()) return -1;
                     if (a.title.toLowerCase() > b.title.toLowerCase()) return 1;
                     return 0;
                 })
         } else {
-            sortedElements = this.props.issue;
+            sortedElements = issues;
         }
         this.forceUpdate();
     }
 
 
     checkSort(issueType) {
+        const { issues } = this.props.issue;
         console.log(sortedElements);
-        sortedElements = this.props.issue.filter(
+        sortedElements = issues.filter(
             (issue) => {
                 return issue.labels.includes(issueType);
             }
@@ -88,9 +96,11 @@ class IssueList extends Component {
     }
 
     render() {
+        const { issues } = this.props.issue;
+        // console.log(sort);
         var sort;
-        if (sortedElements) { sort = sortedElements } else { sort = this.props.issue }
-        let filteredIssues = sort.filter(
+        if (sortedElements) { sort = sortedElements } else { sort = issues }
+        let filteredIssues = issues.filter(
             (issue) => {
                 return issue.title.toLowerCase().includes(this.state.search.toLowerCase()) || issue.description.toLowerCase().includes(this.state.search.toLowerCase());
             }
@@ -122,7 +132,7 @@ class IssueList extends Component {
                 <br />
                 <div style={{ marginLeft: '2.5%' }}>
                     <Table dataSource={filteredIssues} style={{ width: '95%' }} bordered>
-                        <Column title="Issue" dataIndex="title" key="title" onClick={() => this.handleClick} render={(text, issue) => <Link to={`issue/${issue.id}`}>{text}</Link>} />
+                        <Column title="Issue" dataIndex="title" key="title" onClick={() => this.handleClick} render={(text, issue) => <Link to={`issue/${issue._id}`}>{text}</Link>} />
                         <Column title="Status" dataIndex="status" key="status" />
                         <Column
                             title="Tags"
@@ -146,10 +156,15 @@ class IssueList extends Component {
     }
 }
 
+// IssueList.propTypes = {
+//     getissue: PropTypes.func.isRequired,
+//     issue: PropTypes.object.isRequired
+// }
+
 function mapStatetoProps(state) {
     return {
         issue: state.allissues
     };
 }
 
-export default connect(mapStatetoProps)(IssueList);
+export default connect(mapStatetoProps, { getissue })(IssueList);
